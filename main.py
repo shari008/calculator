@@ -1,9 +1,11 @@
-#calculator
+# calculator
 
 import numpy as np
 
+
 def show_menu():
-    print("\n--- Калькулятор Обыкновенный (NumPy) ---")
+    """Выводит в консоль меню с доступными математическими операциями."""
+    print("\n--- Инженерный калькулятор (NumPy) ---")
     print("Доступные операции:")
     print("1. Сложение (+)")
     print("2. Вычитание (-)")
@@ -15,6 +17,14 @@ def show_menu():
 
 
 def get_number(prompt):
+    """Запрашивает у пользователя ввод числа и проверяет его на корректность.
+
+    Args:
+        prompt (str): Текст приглашения для ввода.
+
+    Returns:
+        float: Введенное пользователем число.
+    """
     while True:
         try:
             return float(input(prompt))
@@ -22,21 +32,36 @@ def get_number(prompt):
             print("Ошибка: введите корректное число.")
 
 
+def add_numbers(num1, num2):
+    """Складывает два числа с помощью NumPy.
+
+    Args:
+        num1 (float): Первое слагаемое.
+        num2 (float): Второе слагаемое.
+
+    Returns:
+        float: Сумма чисел.
+    """
+    return np.add(num1, num2)
+
+
 def calculator():
+    """Основной цикл калькулятора, управляющий логикой выбора операций."""
     while True:
         show_menu()
-        choice = input("\nВыберите операцию (0-9): ").strip()
+        choice = input("\nВыберите операцию (0-6): ").strip()
 
         if choice == "0":
             print("Программа завершена. До свидания!")
             break
 
+        # Операции с двумя числами
         if choice in ["1", "2", "3", "4", "5"]:
             num1 = get_number("Введите первое число: ")
             num2 = get_number("Введите второе число: ")
 
             if choice == "1":
-                result = np.add(num1, num2)
+                result = add_numbers(num1, num2)
                 print(f"Результат: {num1} + {num2} = {result}")
             elif choice == "2":
                 result = np.subtract(num1, num2)
@@ -54,17 +79,16 @@ def calculator():
                 result = np.power(num1, num2)
                 print(f"Результат: {num1} ^ {num2} = {result}")
 
+        # Операции с одним числом
         elif choice == "6":
             num = get_number("Введите число: ")
-
-            if choice == "6":
-                if num < 0:
-                    print("Ошибка: нельзя взять корень из отрицательного числа!")
-                else:
-                    result = np.sqrt(num)
-                    print(f"Результат: √{num} = {result}")
+            if num < 0:
+                print("Ошибка: нельзя взять корень из отрицательного числа!")
+            else:
+                result = np.sqrt(num)
+                print(f"Результат: √{num} = {result}")
         else:
-            print("Неверный ввод. Пожалуйста, выберите пункт от 0 до 9.")
+            print("Неверный ввод. Пожалуйста, выберите пункт от 0 до 6.")
 
 
 if __name__ == "__main__":
